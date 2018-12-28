@@ -1,5 +1,5 @@
  range = 2000
- lsb = 16.40 
+ lsb = 16.40
  delay = 50
  sample = 760
  devOffset.x = 1.50610

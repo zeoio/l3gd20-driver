@@ -1,5 +1,5 @@
 obj-m = l3gd20.o
-KERN_DIR = /home/solors/Documents/Sensor/kernel-3.4.39
+KERN_DIR = ~/Documents/Sensor/kernel-3.4.39
 PWD = $(shell pwd)
 
 all:
