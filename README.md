@@ -1,27 +1,32 @@
+### L3GD20 MEMS Motion Sensor Driver
+
 L3GD20 MEMS Motion Sensor, Three-axis Digital Output Gyroscope.
 
-Directory introduction:
-        doc:    development documentation
-        src:    driver source code
-        test:   test program source code
-        tmp:    temporary intermediate files during development
+#### Building the source
 
-L3GD20 three-axis digital output gyroscope Develop documentation. Development
-this driver is divided into three parts. First write the device driver file,
-Then add the board support code. Third, modify the kernel configuration.
+1. Clone the driver code
+```bash
+https://github.com/Sarlor/l3gd20-driver.git
+cd  l3gd20-driver/src
+```
 
-1. Frist enter the 'src' directory.
-        ===> $: cd src
-2. Edit the 'Makefile' file, set the correct kernel directory 'KERN_DIR'.
-        ===> $: vim Makefile
-3. Copy the driver files to the 'hwmon' directory.
-        ===> $: make cp
-4. Add board-level support code.
-        ===> $: vim arch/arm/plat-s5p4418/realarm/device.c
-5. Add the code in the appropriate place.
-        CODE 1:
+2. Edit the 'Makefile' file, set the correct kernel directory 'KERN_DIR'
+```bash
+vim Makefile
+```
 
-                #if defined(CONFIG_SENSORS_L3GD20) || defined(CONFIG_SENSORS_L3GD20_MODULE)
+3. Copy the driver files to the 'hwmon' directory
+```bash
+make cp
+```
+
+4. Add board-level support code to the appropriate place
+```bash
+vim arch/arm/plat-s5p4418/realarm/device.c
+```
+
+ ```c
+                 #if defined(CONFIG_SENSORS_L3GD20) || defined(CONFIG_SENSORS_L3GD20_MODULE)
                 #include <linux/i2c.h>
 
                 /* CODEC */
@@ -32,16 +37,18 @@ Then add the board support code. Third, modify the kernel configuration.
 
                 #endif
 
-        CODE 2:
-
                 #if defined(CONFIG_SENSORS_L3GD20) || defined(CONFIG_SENSORS_L3GD20_MODULE)
                         printk("plat: add gyroscope l3gd20\n");
                         i2c_register_board_info(1, &l3gd20_i2c_bdi, 1);
                 #endif
-7. Modify the kernel configuration file for l3gd20.
-        ===> $: vim drivers/hwmon/Kconfig
-        ADD CODE:
+ ```
 
+5. Modify the kernel configuration file for l3gd20, and add the code to the appropriate place
+	```bash
+	vim drivers/hwmon/Kconfig
+	```
+
+	```c
                 config SENSORS_L3GD20
                         tristate "Three axis digital output gyroscope"
                         depends on I2C
@@ -50,14 +57,22 @@ Then add the board support code. Third, modify the kernel configuration.
                                 Say Y here to enable the gyroscope.
 
                                 If unsure, say N.
+	```
 
-        ===> $: vim drivers/hwmon/Makefile
-        ADD CODE:
+6. Edit Makefile for add l3gd20 driver module
+	```bash
+	vim drivers/hwmon/Makefile
+	```
 
+	```makefile
                 obj-$(CONFIG_SENSORS_L3GD20)    += l3gd20.o
+	```
 
-8. Configure the kernel to use this driver.
-        ===> $: make menuconfig
-                Device Drivers -> Hardware Monitoring support -> Three axis digital output gyroscope
+7. Configure the kernel for required submodule, then save config
+	```bash
+	make menuconfig
+	```
 
-        Check, save.
+	```makefile
+    Device Drivers -> Hardware Monitoring support -> Three axis digital output gyroscope
+	```
