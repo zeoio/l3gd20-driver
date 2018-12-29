@@ -49,14 +49,14 @@ vim drivers/hwmon/Kconfig
 ```
 
 ```c
-	config SENSORS_L3GD20
-		tristate "Three axis digital output gyroscope"
-		depends on I2C
-		default n
-		help
-			Say Y here to enable the gyroscope.
+config SENSORS_L3GD20
+	tristate "Three axis digital output gyroscope"
+	depends on I2C
+	default n
+	help
+		Say Y here to enable the gyroscope.
 
-			If unsure, say N.
+		If unsure, say N.
 ```
 
 6. Edit Makefile for add l3gd20 driver module
