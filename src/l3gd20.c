@@ -1524,7 +1524,7 @@ static void __exit l3gd20_exit(void)
 	i2c_del_driver(&l3gd20_driver);
 }
 
-MODULE_AUTHOR("Sarlor <zoreorg@gmail.com>");
+MODULE_AUTHOR("Sarlor <kinsleer@outlook.com>");
 MODULE_DESCRIPTION("L3GD20 Driver");
 MODULE_LICENSE("GPL");
 
